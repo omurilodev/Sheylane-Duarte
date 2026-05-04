@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --off-white: #eeede8;
+    --nude: #e7d3cc;
+    --rose: #e7d3cc;
+    --lavanda: #b9b6bd;
+    --grafite: #868b8e;
+    --cinza-medio: #7A7A7A;
+    --cinza-suave: #A8A8A8;
+    --accent: #9A8A8F;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Jost', sans-serif;
+  }
+
+  body {
+    background: var(--off-white);
+    color: var(--grafite);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.8;
+    letter-spacing: 0.01em;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(249,247,244,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--lavanda);
+    max-width: 100vw;
+    overflow: hidden;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--grafite);
+    flex-shrink: 1;
+    min-width: 0;
+    white-space: nowrap;
+  }
+  .nav-logo span { color: var(--accent); font-style: italic; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cinza-medio);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--grafite); }
+  .nav-cta {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--off-white);
+    background: var(--grafite);
+    padding: 0.6rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  .nav-cta:hover { background: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 120px;
+    background: white;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 3rem 6rem 6vw;
+    position: relative;
+    overflow: visible;
+  }
+  .hero-deco-svg {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    transform: translate(-50%, -50%) scale(1.0);
+    width: 90%;
+    height: auto;
+    opacity: 0.18;
+    z-index: 0;
+    pointer-events: none;
+    transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+  }
+  .hero-left:hover .hero-deco-svg {
+    opacity: 0.25;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: 3.1rem;
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--grafite);
+    margin-bottom: 1.75rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: 0.94rem;
+    font-weight: 400;
+    line-height: 1.9;
+    color: var(--cinza-medio);
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--grafite);
+    border: 1px solid var(--lavanda);
+    padding: 0.5rem 1.25rem;
+    background: white;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .badge:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .hero-btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--off-white);
+    background: var(--grafite);
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    transition: background 0.3s;
+    align-self: flex-start;
+    border-radius: 4px;
+  }
+  .hero-btn:hover { background: var(--accent); }
+  .hero-crp {
+    margin-top: 2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--cinza-suave);
+  }
+  .hero-right {
+    background: var(--nude);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 3rem;
+  }
+  .hero-img-placeholder {
+    width: 320px;
+    height: 420px;
+    background: var(--rose);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    border: 1px solid var(--lavanda);
+    border-radius: 4px;
+  }
+  .hero-img-placeholder svg { opacity: 0.4; }
+  .hero-img-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cinza-suave);
+    margin-top: 0.5rem;
+  }
+  .hero-deco {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--lavanda);
+    border-radius: 50%;
+    opacity: 0.4;
+  }
+  .hero-deco2 {
+    position: absolute;
+    top: 3rem;
+    left: 3rem;
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--lavanda);
+    border-radius: 50%;
+    opacity: 0.3;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lavanda), transparent);
+    margin: 0;
+  }
+
+  /* SECTIONS */
+  section { padding: 8rem 4rem; }
+
+  .section-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--grafite);
+    margin-bottom: 1.25rem;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+  .section-body {
+    font-family: var(--font-body);
+    font-size: 0.93rem;
+    font-weight: 400;
+    line-height: 2;
+    color: var(--cinza-medio);
+    max-width: 580px;
+  }
+
+  /* SOBRE */
+  .sobre { background: var(--off-white); }
+  .sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .sobre-img-wrap { position: relative; }
+  .sobre-img-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--nude);
+    border: 1px solid var(--lavanda);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--cinza-suave);
+    border-radius: 4px;
+  }
+  .sobre-deco {
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    width: 80%;
+    height: 80%;
+    border: 1px solid var(--lavanda);
+    z-index: -1;
+    border-radius: 4px;
+  }
+  .sobre-content .section-body { max-width: 100%; }
+  .sobre-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .stat-card {
+    background: var(--nude);
+    border: 1px solid var(--lavanda);
+    padding: 1.25rem;
+    border-radius: 4px;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: var(--grafite);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+  .stat-num em { font-style: italic; color: var(--accent); }
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cinza-suave);
+  }
+  .sobre-credentials {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .cred-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--cinza-medio);
+  }
+  .cred-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 0.55rem;
+    flex-shrink: 0;
+  }
+
+  /* NEURO */
+  .neuro { background: var(--grafite); }
+  .neuro .section-eyebrow { color: var(--rose); }
+  .neuro .section-eyebrow::before { background: var(--rose); }
+  .neuro .section-title { color: var(--off-white); }
+  .neuro .section-title em { color: var(--rose); }
+  .neuro .section-body { color: white; }
+  .neuro-grid {
+    max-width: 1100px;
+    margin: 3rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .neuro-card {
+    border: 1px solid rgba(214,211,220,0.2);
+    padding: 2rem 1.75rem;
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+  }
+  .neuro-card-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 400;
+    color: rgba(232,213,204,0.25);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+  .neuro-card-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--off-white);
+    margin-bottom: 0.75rem;
+  }
+  .neuro-card-body {
+    font-size: 0.83rem;
+    font-weight: 400;
+    line-height: 1.9;
+    color: white;
+  }
+  .neuro-bottom {
+    max-width: 1100px;
+    margin: 3rem auto 0;
+    padding: 2rem;
+    background: rgba(232,213,204,0.07);
+    border: 1px solid rgba(232,213,204,0.15);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border-radius: 4px;
+  }
+  .neuro-bottom-icon {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(232,213,204,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--rose);
+    font-size: 1.2rem;
+  }
+  .neuro-bottom-text {
+    font-size: 0.88rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: white;
+  }
+  .neuro-bottom-text strong {
+    color: var(--off-white);
+    font-weight: 400;
+  }
+
+  /* SERVICOS */
+  .servicos { background: var(--off-white); }
+  .servicos-grid {
+    max-width: 1100px;
+    margin: 3rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .serv-card {
+    background: var(--off-white);
+    border: 1px solid var(--lavanda);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  .serv-card.featured {
+    background: var(--grafite);
+  }
+  .serv-card.featured .serv-card-title { color: var(--off-white); }
+  .serv-card.featured .serv-card-body { color: white; opacity: 0.9; }
+  .serv-card.featured .serv-tag { background: rgba(255,255,255,0.1); color: var(--lavanda); border-color: transparent; }
+  .serv-card-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .serv-card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--grafite);
+    margin-bottom: 1rem;
+    line-height: 1.25;
+  }
+  .serv-card-body {
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.9;
+    color: var(--grafite);
+    margin-bottom: 1.5rem;
+  }
+  .serv-btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--off-white);
+    background: var(--grafite);
+    padding: 0.9rem 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin-top: auto;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+  }
+  .serv-btn:hover {
+    background: var(--accent);
+    color: white;
+  }
+  .serv-card.featured .serv-btn {
+    background: white;
+    color: var(--grafite);
+  }
+  .serv-card.featured .serv-btn:hover {
+    background: var(--off-white);
+    color: var(--grafite);
+  }
+  .serv-card, .kids-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .serv-deco {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 100px;
+    height: 100px;
+    border: 1px solid var(--lavanda);
+    border-radius: 50%;
+    opacity: 0.3;
+  }
+  .kids-card {
+    background: var(--rose);
+    border: 1px solid var(--lavanda);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 4px;
+  }
+  .kids-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--grafite);
+    margin-bottom: 0.75rem;
+  }
+  .kids-body {
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.9;
+    color: var(--cinza-medio);
+  }
+  .kids-img-placeholder {
+    height: 200px;
+    background: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--cinza-suave);
+    border-radius: 4px;
+  }
+
+  /* ABA */
+  .aba { background: var(--off-white); }
+  .aba-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .aba-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .aba-item {
+    display: flex;
+    gap: 1.25rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--lavanda);
+  }
+  .aba-item:last-child { border-bottom: none; }
+  .aba-item-num {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--lavanda);
+    min-width: 32px;
+    line-height: 1.1;
+  }
+  .aba-item-content {}
+  .aba-item-title {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--grafite);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .aba-item-body {
+    font-size: 0.83rem;
+    font-weight: 400;
+    line-height: 1.85;
+    color: var(--cinza-medio);
+  }
+  .aba-right {
+    background: var(--nude);
+    border: 1px solid var(--lavanda);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    border-radius: 4px;
+  }
+  .aba-quote {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--grafite);
+  }
+  .aba-quote em { color: var(--accent); }
+
+  /* NEW STYLES FOR HIGHLIGHT */
+  .special-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--off-white);
+    background: var(--accent);
+    padding: 0.4rem 1.2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 50px;
+  }
+  .aba-highlight-box {
+    background: white;
+    border: 1px solid var(--rose);
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(154, 138, 143, 0.08);
+    position: relative;
+    z-index: 1;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 4px;
+  }
+  .aba-highlight-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(154, 138, 143, 0.12);
+  }
+  .aba-item-num { color: var(--accent); }
+
+  .aba-main-title {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    font-weight: 500;
+    color: var(--grafite);
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
+  }
+  .aba-sub-text {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+
+  .aba-session-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .aba-session-item {
+    background: var(--off-white);
+    border: 1px solid var(--lavanda);
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .aba-session-val {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--grafite);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .aba-session-lbl {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cinza-suave);
+  }
+  .aba-img-placeholder {
+    height: 180px;
+    background: var(--rose);
+    border: 1px solid var(--lavanda);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--cinza-suave);
+  }
+
+  /* CONTATO */
+  .contato {
+    background: var(--grafite);
+    padding: 0;
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    min-height: 250px;
+    border-top: 1px solid rgba(214,211,220,0.15);
+  }
+  .contato-left {
+    padding: 2rem 4rem 2rem 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contato-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin-top: 0.5rem;
+  }
+  .contato-left .section-title {
+    margin-bottom: 0.5rem;
+  }
+  .contato-left .section-eyebrow {
+    margin-bottom: 0.25rem;
+  }
+  .contato-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 200px;
+  }
+  .contato-image-area {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .contato-image-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .contato-info { display: flex; flex-direction: column; gap: 1.75rem; }
+  .contato-item { display: flex; flex-direction: column; gap: 0.25rem; }
+  .contato-item-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cinza-suave);
+  }
+  .contato-item-value {
+    font-size: 0.92rem;
+    font-weight: 400;
+    color: white;
+    line-height: 1.6;
+  }
+  .contato-item-value a {
+    color: var(--rose);
+    text-decoration: none;
+  }
+  .contato-form-area {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(214,211,220,0.15);
+    padding: 2.5rem;
+  }
+  .form-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--off-white);
+    margin-bottom: 1.5rem;
+  }
+  .form-field { margin-bottom: 1.25rem; }
+  .form-field label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cinza-suave);
+    margin-bottom: 0.4rem;
+  }
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(214,211,220,0.2);
+    padding: 0.75rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--lavanda);
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+  }
+  .form-field input::placeholder,
+  .form-field textarea::placeholder { color: rgba(168,168,168,0.4); }
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus { border-color: var(--rose); }
+  .form-field select { appearance: none; cursor: pointer; }
+  .form-btn {
+    width: 100%;
+    background: var(--rose);
+    color: var(--grafite);
+    border: none;
+    padding: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-radius: 4px;
+  }
+  .form-btn:hover { background: var(--off-white); }
+
+  /* FOOTER */
+  footer {
+    background: var(--grafite);
+    border-top: 1px solid rgba(214,211,220,0.15);
+    padding: 2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    color: white;
+  }
+  .footer-logo em { font-style: italic; color: var(--rose); }
+  .footer-copy {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--cinza-suave);
+  }
+  .footer-crp {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--cinza-suave);
+  }
+
+  /* IMG placeholder generic */
+  .img-note {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cinza-suave);
+    margin-top: 0.4rem;
+  }
+  .ph-icon { opacity: 0.35; }
+
+  /* WHATSAPP FLOAT */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    background: var(--accent); 
+    color: white;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+  }
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    background: var(--grafite);
+  }
+  .whatsapp-float svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.2, 1, 0.3, 1), transform 1s cubic-bezier(0.2, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .delay-1 { transition-delay: 0.15s; }
+  .delay-2 { transition-delay: 0.3s; }
+  .delay-3 { transition-delay: 0.45s; }
+
+  /* HAMBURGER MENU */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    z-index: 200;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: var(--grafite);
+    transition: all 0.35s ease;
+    border-radius: 2px;
+  }
+  .nav-hamburger.active span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .nav-hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-hamburger.active span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* ==================== TABLET (max-width: 1024px) ==================== */
+  @media (max-width: 1024px) {
+    nav { padding: 1rem 2.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .nav-links a { font-size: 0.72rem; }
+
+    section { padding: 5rem 2.5rem; }
+
+    .hero {
+      grid-template-columns: 1fr 1fr;
+      padding-top: 90px;
+    }
+    .hero-left { padding: 4rem 2rem 4rem 4vw; }
+    .hero-headline { font-size: 2.4rem; }
+    .hero-sub { font-size: 0.88rem; }
+
+    .sobre-grid {
+      gap: 3rem;
+      grid-template-columns: 1fr 1.4fr;
+    }
+
+    .neuro-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .neuro-card { padding: 1.5rem 1.25rem; }
+
+    .servicos-grid { gap: 1rem; }
+    .serv-card { padding: 2rem; }
+
+    .aba-inner { gap: 3rem; }
+
+    .contato { grid-template-columns: 1fr 1fr; }
+    .contato-left { padding: 2rem 2.5rem; }
+
+    footer { padding: 1.5rem 2.5rem; }
+  }
+
+  /* ==================== TABLET SMALL / LANDSCAPE PHONE (max-width: 768px) ==================== */
+  @media (max-width: 768px) {
+    /* NAV → hamburger */
+    .nav-hamburger { display: flex; }
+    nav {
+      padding: 1rem 1.5rem;
+      flex-wrap: wrap;
+      overflow: visible;
+    }
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      gap: 0;
+      order: 3;
+      padding-top: 1rem;
+      border-top: 1px solid var(--lavanda);
+      margin-top: 1rem;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { padding: 0.6rem 0; }
+    .nav-links a {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+    }
+    .nav-cta {
+      display: none;
+    }
+    .nav-cta.mobile-show {
+      display: block;
+      width: 100%;
+      text-align: center;
+      order: 4;
+      margin-top: 0.75rem;
+      padding: 0.75rem 1rem;
+    }
+
+    /* HERO */
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding-top: 80px;
+    }
+    .hero-left {
+      padding: 3rem 1.5rem 2rem;
+      order: 2;
+      text-align: center;
+      align-items: center;
+    }
+    .hero-deco-svg {
+      top: 50%;
+      left: 50%;
+      width: 110%;
+      opacity: 0.12;
+    }
+    .hero-eyebrow { justify-content: center; }
+    .hero-headline {
+      font-size: 2.2rem;
+      margin-bottom: 1.25rem;
+    }
+    .hero-sub {
+      max-width: 100%;
+      margin-bottom: 2rem;
+    }
+    .hero-badges { justify-content: center; }
+    .hero-btn { align-self: center; }
+    .hero-crp { text-align: center; }
+    .hero-right {
+      order: 1;
+      padding: 2rem 1.5rem;
+      min-height: 350px;
+    }
+
+    /* SECTIONS */
+    section { padding: 4rem 1.5rem; }
+    .section-title { font-size: 2rem; }
+
+    /* SOBRE */
+    .sobre-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      text-align: center;
+    }
+    .sobre-img-wrap { max-width: 350px; margin: 0 auto; }
+    .sobre-content .section-eyebrow { justify-content: center; }
+    .sobre-content .section-body { max-width: 100%; }
+    .sobre-stats { grid-template-columns: 1fr 1fr; }
+    .sobre-credentials { text-align: left; }
+
+    /* NEURO */
+    .neuro-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    .neuro-card { padding: 1.75rem; }
+    .neuro-bottom { flex-direction: column; text-align: center; }
+
+    /* SERVICOS */
+    .servicos-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    .serv-card, .kids-card { padding: 2rem 1.5rem; }
+
+    /* ABA */
+    .aba-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .aba-highlight-box { padding: 2rem 1.5rem; }
+    .aba-main-title { font-size: 2rem; }
+    .aba-session-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    /* CONTATO */
+    .contato {
+      grid-template-columns: 1fr;
+    }
+    .contato-left {
+      padding: 3rem 1.5rem;
+    }
+    .contato-image-area {
+      height: 300px;
+    }
+
+    /* FOOTER */
+    footer {
+      flex-direction: column;
+      gap: 0.75rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+  }
+
+  /* ==================== MOBILE (max-width: 480px) ==================== */
+  @media (max-width: 480px) {
+    nav { padding: 0.85rem 1rem; }
+    .nav-logo { font-size: 1.05rem; }
+    .nav-logo span { display: none; }
+
+    .hero-left { padding: 2.5rem 1rem 2rem; }
+    .hero-headline { font-size: 1.75rem; }
+    .hero-sub { font-size: 0.85rem; line-height: 1.75; }
+    .hero-right { padding: 1.5rem 1rem; min-height: 280px; }
+    .hero-badges { gap: 0.5rem; }
+    .badge { padding: 0.4rem 0.9rem; font-size: 0.65rem; }
+    .hero-btn { padding: 0.85rem 2rem; font-size: 0.75rem; }
+
+    section { padding: 3rem 1rem; }
+    .section-title { font-size: 1.7rem; }
+    .section-body { font-size: 0.88rem; }
+
+    .sobre-stats { grid-template-columns: 1fr; }
+    .stat-num { font-size: 1.8rem; }
+    .cred-item { font-size: 0.8rem; }
+
+    .neuro-card-title { font-size: 1.1rem; }
+    .neuro-card-body { font-size: 0.8rem; }
+    .neuro-card-num { font-size: 2.2rem; }
+
+    .serv-card-title { font-size: 1.35rem; }
+    .serv-card-body { font-size: 0.82rem; }
+
+    .aba-main-title { font-size: 1.65rem; }
+    .aba-sub-text { font-size: 0.95rem; }
+    .aba-session-grid { grid-template-columns: 1fr 1fr; }
+    .aba-session-val { font-size: 1.4rem; }
+    .aba-quote { font-size: 1.2rem; }
+
+    .contato-left { padding: 2.5rem 1rem; }
+    .contato-image-area { height: 220px; }
+
+    .contato-item a.hero-btn {
+      width: 100% !important;
+      text-align: center;
+    }
+    .contato-item > div {
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+    }
+
+    .whatsapp-float {
+      width: 52px;
+      height: 52px;
+      bottom: 1.5rem;
+      right: 1.5rem;
+    }
+    .whatsapp-float svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    footer { padding: 1.25rem 1rem; }
+  }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Sheylane Duarte <span>— Neuropsicóloga</span></div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#avaliacao">Avaliação</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#aba">Terapia ABA</a></li>
+  </ul>
+  <a href="#contato" class="nav-cta" id="navCta">Agendar Consulta</a>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-left reveal">
+    <img src="assets/elemento.svg" class="hero-deco-svg" alt="">
+    <div class="hero-eyebrow" style="position: relative; z-index: 1;">Neuropsicologia &amp; Psicoterapia</div>
+    <h1 class="hero-headline">
+      Compreenda como sua mente funciona.<br>
+      <em>Viva com mais saúde.</em>
+    </h1>
+    <p class="hero-sub">
+      Através da Avaliação Neuropsicológica, ofereço um olhar criterioso e humanizado sobre o seu funcionamento cognitivo — auxiliando em diagnósticos precisos e em uma vida emocional mais equilibrada. 
+    </p>
+    <div class="hero-badges reveal delay-1">
+      <div class="badge">Avaliação de TEA &amp; TDAH</div>
+      <div class="badge">Neuropsicologia</div>
+      <div class="badge">Terapia ABA</div>
+    </div>
+    
+    <a href="#contato" class="hero-btn">Agendar Avaliação</a>
+    <p class="hero-crp">CRP-13/13273 · Atendimento Presencial &amp; Online</p>
+  </div>
+  <div class="hero-right reveal delay-1">
+    <div style="position: relative; z-index: 2; width: 85%; max-width: 420px;">
+      <!-- Fundo Quadrado 1 -->
+      <div style="position: absolute; top: -20px; left: -20px; width: 100%; height: 100%; border: 1px solid var(--lavanda); z-index: 0;"></div>
+      <!-- Fundo Quadrado 2 -->
+      <div style="position: absolute; bottom: -20px; right: -20px; width: 100%; height: 100%; background: var(--lavanda); opacity: 0.3; z-index: 0;"></div>
+      
+      <img src="assets/Sheylane-Hero-Section.jpeg" alt="Sheylane Duarte" style="width: 100%; height: auto; border: 1px solid var(--lavanda); display: block; position: relative; z-index: 1; box-shadow: 20px 20px 0 var(--rose); border-radius: 4px;">
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="sobre" id="sobre">
+  <div class="sobre-grid reveal">
+    <div class="sobre-img-wrap">
+      <img src="assets/Sheylane-About-Section.jpeg" alt="Sheylane Duarte" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border: 1px solid var(--lavanda); display: block; border-radius: 4px;">
+      <div class="sobre-deco"></div>
+    </div>
+    <div class="sobre-content">
+      <div class="section-eyebrow">Sobre Mim</div>
+      <h2 class="section-title">Sheylane Duarte,<br><em>Neuropsicóloga</em></h2>
+      <p class="section-body">
+        Sou psicóloga e neuropsicóloga formada pela Faculdade de Enfermagem Nova Esperança, pós-graduada pela FABEX e Terapeuta ABA. Minha trajetória é pautada pelo compromisso ético e pela empatia no auxílio ao processo de cada paciente.
+      </p>
+      <p class="section-body" style="margin-top: 1rem;">
+        Utilizo a abordagem da Terapia Cognitivo-Comportamental (TCC), unindo rigor científico à escuta sensível para compreender emoções e vivências que muitas vezes são difíceis de expressar.
+      </p>
+      <div class="sobre-credentials">
+        <div class="cred-item"><span class="cred-dot"></span>Graduação em Psicologia — Faculdade de Enfermagem Nova Esperança</div>
+        <div class="cred-item"><span class="cred-dot"></span>Pós-graduação em Neuropsicologia — FABEX</div>
+        <div class="cred-item"><span class="cred-dot"></span>Especialização em Terapeuta ABA</div>
+        <div class="cred-item"><span class="cred-dot"></span>Experiência em Hospital Psiquiátrico, Clínica Escola e CRAS</div>
+      </div>
+      <div class="sobre-stats">
+        <div class="stat-card">
+          <div class="stat-num"><em>+3</em> anos</div>
+          <div class="stat-label">de atuação profissional</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="font-size: 1.8rem;"><em>Todos</em> os públicos</div>
+          <div class="stat-label">crianças, adolescentes,<br>adultos e idosos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="neuro" id="avaliacao">
+  <div style="max-width:1100px; margin: 0 auto;" class="reveal">
+    <div class="section-eyebrow">Especialidade</div>
+    <h2 class="section-title">Avaliação <em>Neuropsicológica</em></h2>
+    <p class="section-body" style="max-width:620px;">
+      Um processo criterioso realizado de forma humanizada, integrando testes científicos e escuta atenta para compreender o funcionamento cognitivo e emocional de cada pessoa.
+    </p>
+    <div class="neuro-grid">
+      <div class="neuro-card reveal delay-1">
+        <div class="neuro-card-num">01</div>
+        <div class="neuro-card-title">O que é?</div>
+        <p class="neuro-card-body">Uma investigação científica das funções cognitivas e emocionais, buscando oferecer devolutivas claras e direcionamentos seguros para o paciente.</p>
+      </div>
+      <div class="neuro-card reveal delay-2">
+        <div class="neuro-card-num">02</div>
+        <div class="neuro-card-title">Para quem é?</div>
+        <p class="neuro-card-body">Atendimento voltado para crianças, adolescentes, adultos e idosos, respeitando as demandas e o tempo de cada fase da vida.</p>
+      </div>
+      <div class="neuro-card reveal delay-3">
+        <div class="neuro-card-num">03</div>
+        <div class="neuro-card-title">O que investigamos?</div>
+        <p class="neuro-card-body">Manejo clínico e diagnóstico de neurodivergências como TEA e TDAH, além de avaliações no campo das dificuldades cognitivas.</p>
+      </div>
+    </div>
+    <div class="neuro-bottom">
+      <div class="neuro-bottom-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <p class="neuro-bottom-text">
+        Ao final do processo, é emitido um <strong>laudo detalhado</strong> com orientações precisas, fundamentado na aplicação de testes psicológicos e neuropsicológicos.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="servicos" id="servicos">
+  <div style="max-width:1100px; margin: 0 auto;" class="reveal">
+    <div class="section-eyebrow">Serviços</div>
+    <h2 class="section-title">Psicoterapia &amp; <em>Cuidado Integral</em></h2>
+    <p class="section-body">Espaços seguros e acolhedores onde sua história pode ser compartilhada sem julgamentos, visando o desenvolvimento de recursos emocionais.</p>
+    <div class="servicos-grid">
+      <div class="serv-card reveal delay-1">
+        <div class="serv-card-eyebrow">Presencial</div>
+        <div class="serv-card-title">Atendimento no Ecomedical Sul</div>
+        <p class="serv-card-body">Ambiente preparado para o cuidado em saúde mental de adultos e idosos, garantindo total conforto, sigilo e qualidade profissional.</p>
+        <a href="#contato" class="serv-btn">Agendar Presencial</a>
+        <div class="serv-deco"></div>
+      </div>
+      <div class="serv-card featured reveal delay-2">
+        <div class="serv-card-eyebrow" style="color: var(--rose);">Online · Total Sigilo</div>
+        <div class="serv-card-title">Atendimento Online</div>
+        <p class="serv-card-body">Suporte psicológico com ética e responsabilidade, oferecendo um espaço seguro mesmo à distância, com horários flexíveis adaptados à sua rotina.</p>
+        <a href="#contato" class="serv-btn">Agendar Online</a>
+      </div>
+      <div class="kids-card reveal delay-3">
+        <div class="section-eyebrow" style="color: var(--accent); margin-bottom: 0.75rem;">Espaço Kids</div>
+        <div class="serv-card-title">Um lugar feito<br>para a criança</div>
+        <p class="serv-card-body">Sala infantil estruturada e lúdica no bairro dos Bancários, proporcionando um ambiente adequado para uma avaliação mais sensível de crianças e adolescentes.</p>
+        <a href="#contato" class="serv-btn">Saiba Mais</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="aba" id="aba" style="background: linear-gradient(180deg, var(--off-white) 0%, #fcfaf8 100%); position: relative; overflow: hidden;">
+  <!-- Subtle decoration -->
+  <div style="position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: var(--rose); opacity: 0.05; border-radius: 50%; pointer-events: none;"></div>
+  
+  <div class="aba-inner">
+    <div class="aba-highlight-box reveal">
+      <h2 class="aba-main-title">Terapia ABA</h2>
+      <h3 class="aba-sub-text">Foco total na singularidade de cada criança</h3>
+      <p class="section-body">
+        Um serviço diferenciado para famílias que buscam cuidado personalizado, longe de ambientes clínicos lotados onde a individualidade da criança pode ser perdida.
+      </p>
+      <div class="aba-list">
+        <div class="aba-item reveal delay-1">
+          <div class="aba-item-num">01</div>
+          <div class="aba-item-content">
+            <div class="aba-item-title">Atendimento exclusivo</div>
+            <p class="aba-item-body">Trabalho realizado com uma criança por vez, garantindo foco total nas necessidades específicas e sem intervenções padronizadas.</p>
+          </div>
+        </div>
+        <div class="aba-item reveal delay-2">
+          <div class="aba-item-num">02</div>
+          <div class="aba-item-content">
+            <div class="aba-item-title">Sessões intensivas</div>
+            <p class="aba-item-body">Cada sessão tem duração de 2 horas, sendo 1h45 dedicadas inteiramente à intervenção terapêutica direta com o paciente.</p>
+          </div>
+        </div>
+        <div class="aba-item reveal delay-3">
+          <div class="aba-item-num">03</div>
+          <div class="aba-item-content">
+            <div class="aba-item-title">Feedback e Parceria</div>
+            <p class="aba-item-body">Os 15 minutos finais são exclusivos para feedback com os responsáveis, promovendo a orientação e participação ativa da família.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal delay-2">
+      <div class="aba-right">
+        <p class="aba-quote">"Respeitar o tempo, as demandas e o <em>potencial de cada criança</em> é a base do meu cuidado individualizado."</p>
+        <div class="aba-session-grid">
+          <div class="aba-session-item">
+            <span class="aba-session-val">2h</span>
+            <span class="aba-session-lbl">por sessão</span>
+          </div>
+          <div class="aba-session-item">
+            <span class="aba-session-val">1:1</span>
+            <span class="aba-session-lbl">foco total</span>
+          </div>
+          <div class="aba-session-item">
+            <span class="aba-session-val">1h45</span>
+            <span class="aba-session-lbl">intervenção</span>
+          </div>
+          <div class="aba-session-item">
+            <span class="aba-session-val">15min</span>
+            <span class="aba-session-lbl">feedback</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="contato" id="contato">
+  <div class="contato-left reveal">
+    <div class="section-eyebrow">Contato</div>
+    <h2 class="section-title">Dê o primeiro<br>passo hoje</h2>
+    
+    <div class="contato-info">
+      <div class="contato-item reveal delay-1" style="min-width: 100%;">
+        <span class="contato-item-label">Agende seu horário</span>
+        <div style="display: flex; gap: 1.5rem; margin-top: 1rem; align-items: flex-start;">
+          <a href="https://wa.me/5583996526084" target="_blank" class="hero-btn" style="padding: 0.8rem 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0.8rem; font-size: 0.7rem; background: transparent; border: 1px solid var(--lavanda); color: white;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            WhatsApp
+          </a>
+          <a href="https://instagram.com/psisheylane.duarte" target="_blank" class="hero-btn" style="padding: 0.8rem 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0.8rem; font-size: 0.7rem; width: auto;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            Instagram
+          </a>
+        </div>
+      </div>
+
+      <div class="contato-item reveal delay-2">
+        <span class="contato-item-label">Endereço Unidade Bancários</span>
+        <span class="contato-item-value">
+          <a href="https://www.google.com/maps/search/?api=1&query=Rua+Enfermeira+Ana+Maria+Barbosa+de+Almeida+164+Joao+Pessoa" target="_blank" style="text-decoration: underline; text-underline-offset: 4px; opacity: 0.9;">
+            Rua Enfermeira Ana Maria Barbosa de Almeida, nº 164<br>Jardim Cidade Universitária
+          </a>
+        </span>
+      </div>
+
+      <div class="contato-item reveal delay-2">
+        <span class="contato-item-label">Unidade Adicional</span>
+        <span class="contato-item-value">Ecomedical Sul</span>
+      </div>
+
+      <div class="contato-item reveal delay-3">
+        <span class="contato-item-label">Registro Profissional</span>
+        <span class="contato-item-value">CRP-13/13273</span>
+      </div>
+
+      <div class="contato-item reveal delay-3" style="min-width: 100%;">
+        <span class="contato-item-label">Especialidades</span>
+        <span class="contato-item-value" style="color: var(--rose);">Avaliação Neuropsicológica · Terapia ABA · Psicoterapia</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="contato-image-area reveal delay-1">
+    <img src="assets/Sheylane-Formulário.png" alt="Sheylane Duarte">
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Sheylane Duarte <em>— Neuropsicóloga</em></div>
+  <div class="footer-copy">© 2026 · Todos os direitos reservados</div>
+  <div class="footer-crp">CRP-13/13273</div>
+</footer>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach(el => observer.observe(el));
+
+    // Mouse Parallax for Hero SVG
+    const hero = document.querySelector('.hero');
+    const deco = document.querySelector('.hero-deco-svg');
+    
+    if (hero && deco) {
+      hero.addEventListener('mousemove', (e) => {
+        const x = (e.clientX - window.innerWidth / 2) / 40;
+        const y = (e.clientY - window.innerHeight / 2) / 40;
+        deco.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(1.05)`;
+      });
+    }
+
+    // Hamburger Menu Toggle
+    const hamburger = document.getElementById('navHamburger');
+    const navLinks = document.getElementById('navLinks');
+    const navCta = document.getElementById('navCta');
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+        if (navCta) navCta.classList.toggle('mobile-show');
+      });
+
+      // Close menu when a link is clicked
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+          if (navCta) navCta.classList.remove('mobile-show');
+        });
+      });
+    }
+  });
+</script>
+<a href="https://wa.me/5583996526084" class="whatsapp-float" target="_blank" title="Fale pelo WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+  </svg>
+</a>
+
+</body>
+</html>
